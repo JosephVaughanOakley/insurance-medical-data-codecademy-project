@@ -51,7 +51,7 @@ def smoking_cost(dataset, max_children = 0):
     
 # smoking_cost(dataset)
 
-# - what is the average additional cost for 1 child? what is the average added cost of a second child? third? fourth? fifth?
+# - what is the average cost of having one child? two? three through five?
 
 def cost_of_children(dataset):
     num_zero = 0
@@ -108,14 +108,188 @@ def cost_of_children(dataset):
     fifth_child_cost = round(avg_five - avg_four, 2)
 
     return print(f"The average cost of insurance ordered by number of children is: \nZero Children: ${avg_zero} \nOne Child: ${avg_one} \nTwo Children: ${avg_two} \nThree Children: ${avg_three} \nFour Children: ${avg_four} \nFive Children: ${avg_five}")
-    # return print(f"The first child will cost on average ${first_child_cost}, the second \naverages an additional ${second_child_cost}, the third ${third_child_cost}, the \nfourth ${fourth_child_cost}, and the fifth ${fifth_child_cost}. Please keep \nthis in mind when planning for your future.")
 
 cost_of_children(dataset)
+# the averages returned here are not telling the whole story, we either do not have a large enough dataset (very likely) or there is a very significant error in the data collection methods, so we will have to dig deeper to see if there is another variable having an overriding impact on the cost of insurance.
+# - are people with fewer kids more or less likely to smoke?
+
+
+
+
+###################################################################################################################################################
+#
+# after writing the following function i realized i needed to learn about dynamic variables because this is getting a bit out of hand. i will try
+# my hand at writing a variable generator to make this less complicated (and in the real world there is no hard cap of 5 kids, so this would get
+# very messy very quick) once i finish this, but for now i'm going to lean into the absurd and make this very specific.
+#
+###################################################################################################################################################
+
+
+def smoker_vs_parent_vs_age(dataset):
+    zero_nonsmoke = 0
+    zero_smoke = 0
+    zero_nonsmoke_cost = float(0)
+    zero_smoke_cost = float(0)
+    zero_nonsmoke_age = 0
+    zero_smoke_age = 0
+
+    one_nonsmoke = 0
+    one_smoke = 0 
+    one_nonsmoke_cost = float(0)
+    one_smoke_cost = float(0)
+    one_nonsmoke_age = 0
+    one_smoke_age = 0
+
+    two_nonsmoke = 0
+    two_smoke = 0 
+    two_nonsmoke_cost = float(0)
+    two_smoke_cost = float(0)
+    two_nonsmoke_age = 0
+    two_smoke_age = 0
+
+    three_nonsmoke = 0
+    three_smoke = 0 
+    three_nonsmoke_cost = float(0)
+    three_smoke_cost = float(0)
+    three_nonsmoke_age = 0
+    three_smoke_age = 0
+
+    four_nonsmoke = 0
+    four_smoke = 0 
+    four_nonsmoke_cost = float(0)
+    four_smoke_cost = float(0)
+    four_nonsmoke_age = 0
+    four_smoke_age = 0
+
+    five_nonsmoke = 0
+    five_smoke = 0 
+    five_nonsmoke_cost = float(0)
+    five_smoke_cost = float(0)
+    five_nonsmoke_age = 0
+    five_smoke_age = 0     
+
+    for record in dataset:
+        if record["children"] == "0":
+            if record["smoker"] == "yes":
+                zero_smoke += 1
+                zero_smoke_cost += float(record["charges"])
+                zero_smoke_age += int(record["age"])
+            else:
+                zero_nonsmoke += 1
+                zero_nonsmoke_cost += float(record["charges"])
+                zero_nonsmoke_age += int(record["age"])
+        elif record["children"] == "1":
+            if record["smoker"] == "yes":
+                one_smoke += 1
+                one_smoke_cost += float(record["charges"])
+                one_smoke_age += int(record["age"])
+            else:
+                one_nonsmoke += 1
+                one_nonsmoke_cost += float(record["charges"])
+                one_nonsmoke_age += int(record["age"])
+        elif record["children"] == "2":
+            if record["smoker"] == "yes":
+                two_smoke += 1
+                two_smoke_cost += float(record["charges"])
+                two_smoke_age += int(record["age"])               
+            else:
+                two_nonsmoke += 1
+                two_nonsmoke_cost += float(record["charges"])
+                two_nonsmoke_age += int(record["age"])
+        elif record["children"] == "3":
+            if record["smoker"] == "yes":
+                three_smoke += 1
+                three_smoke_cost += float(record["charges"])
+                three_smoke_age += int(record["age"])
+            else:
+                three_nonsmoke += 1
+                three_nonsmoke_cost += float(record["charges"])
+                three_nonsmoke_age += int(record["age"])
+        elif record["children"] == "4":
+            if record["smoker"] == "yes":
+                four_smoke += 1
+                four_smoke_cost += float(record["charges"])
+                four_smoke_age += int(record["age"])
+            else:
+                four_nonsmoke += 1
+                four_nonsmoke_cost += float(record["charges"])
+                four_nonsmoke_age += int(record["age"])
+        elif record["children"] == "5":
+            if record["smoker"] == "yes":
+                five_smoke += 1
+                five_smoke_cost += float(record["charges"])
+                five_smoke_age += int(record["age"])               
+            else:
+                five_nonsmoke += 1
+                five_nonsmoke_cost += float(record["charges"])
+                five_nonsmoke_age += int(record["age"])
+        else:
+            print("this must be the wrong data, cause these people cant have more than five kids") 
+    
+    zero_nonsmoke_avg_cost = zero_nonsmoke_cost/zero_nonsmoke
+    zero_nonsmoke_avg_age = zero_nonsmoke_age/zero_nonsmoke
+    zero_smoke_avg_cost = zero_smoke_cost/zero_smoke
+    zero_smoke_avg_age = zero_smoke_age/zero_smoke
+
+    one_nonsmoke_avg_cost = one_nonsmoke_cost/one_nonsmoke
+    one_nonsmoke_avg_age = one_nonsmoke_age/one_nonsmoke
+    one_smoke_avg_cost = one_smoke_cost/one_smoke
+    one_smoke_avg_age = one_smoke_age/one_smoke
+
+    two_nonsmoke_avg_cost = two_nonsmoke_cost/two_nonsmoke
+    two_nonsmoke_avg_age = two_nonsmoke_age/two_nonsmoke
+    two_smoke_avg_cost = two_smoke_cost/two_smoke
+    two_smoke_avg_age = two_smoke_age/two_smoke
+
+    three_nonsmoke_avg_cost = three_nonsmoke_cost/three_nonsmoke
+    three_nonsmoke_avg_age = three_nonsmoke_age/three_nonsmoke
+    three_smoke_avg_cost = three_smoke_cost/three_smoke
+    three_smoke_avg_age = three_smoke_age/three_smoke    
+
+    four_nonsmoke_avg_cost = four_nonsmoke_cost/four_nonsmoke
+    four_nonsmoke_avg_age = four_nonsmoke_age/four_nonsmoke
+    four_smoke_avg_cost = four_smoke_cost/four_smoke
+    four_smoke_avg_age = four_smoke_age/four_smoke
+
+    five_nonsmoke_avg_cost = five_nonsmoke_cost/five_nonsmoke
+    five_nonsmoke_avg_age = five_nonsmoke_age/five_nonsmoke
+    five_smoke_avg_cost = five_smoke_cost/five_smoke
+    five_smoke_avg_age = five_smoke_age/five_smoke
+
+
+    num_children_bool_smoker = {}
+    num_children_bool_smoker["zero"] = {"no": [zero_nonsmoke_avg_age, zero_nonsmoke_avg_cost], "yes": [zero_smoke_avg_age, zero_smoke_avg_cost]}
+    num_children_bool_smoker["one"] = {"no": [one_nonsmoke_avg_age, one_nonsmoke_avg_cost], "yes": [one_smoke_avg_age, one_smoke_avg_cost]}
+    num_children_bool_smoker["two"] = {"no": [two_nonsmoke_avg_age, two_nonsmoke_avg_cost], "yes": [two_smoke_avg_age, two_smoke_avg_cost]}
+    num_children_bool_smoker["three"] = {"no": [three_nonsmoke_avg_age, three_nonsmoke_avg_cost], "yes": [three_smoke_avg_age, three_smoke_avg_cost]}
+    num_children_bool_smoker["four"] = {"no": [four_nonsmoke_avg_age, four_nonsmoke_avg_cost], "yes": [four_smoke_avg_age, four_smoke_avg_cost]}
+    num_children_bool_smoker["five"] = {"no": [five_nonsmoke_avg_age, five_nonsmoke_avg_cost], "yes": [five_smoke_avg_age, five_smoke_avg_cost]}
+
+    for num_kids, is_smoker in num_children_bool_smoker.items():
+        for key, value in is_smoker.items():
+            if key == "no":
+                if num_kids != "one":
+                    print(f"The average non-smoker who has {num_kids} children is {round(value[0], 1)} years old, and pays ${round(value[1], 2)} per year for insurance.")
+                else:
+                    print(f"The average non-smoker who has {num_kids} children is {round(value[0], 1)} years old, and pays ${round(value[1], 2)} per year for insurance.")
+            else:
+                if num_kids != "one":
+                    print(f"The average smoker who has {num_kids} children is {round(value[0], 1)} years old, and pays ${round(value[1], 2)} per year for insurance.")
+                else:
+                    print(f"The average smoker who has {num_kids} children is {round(value[0], 1)} years old, and pays ${round(value[1], 2)} per year for insurance.")
+
+
+smoker_vs_parent_vs_age(dataset)
+                
+    
+
+
+
+
+
+
+
+
 
 
 # - what is the average bmi of people who have 0 children? 1 child? 2 children? 3? 4? 5?
-
-
-
-
-# can we see if the age of a person affects the size of the added cost of being a smoker? (that last one I may incorporate elsewhere)
