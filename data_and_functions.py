@@ -7,8 +7,6 @@ with open("insurance.csv") as ins_dat:
     for row in insurance_data:
         dataset.append(row)
 
-# - how much on average does smoking increase insurance costs? if we control for number of children can we see if the 
-# costs associated with both BMI and smoker status behave independantly or if they compound on one another?
 def max_children(dataset):
     most_children = 0
     for record in dataset:
@@ -17,6 +15,14 @@ def max_children(dataset):
     return most_children
 most_kids = max_children(dataset)
 # print(most_kids)
+
+
+
+# - how much on average does smoking increase insurance costs? i am making the assumptions that children are expensive
+# and smoking increases the cost of insurance, so if we control for number of children do we see the cost of insurance
+# rise as expected? by how much on average? i opted to include average age of both groups as an indication that these
+# groups are complex and this insight is influenced by a number of variables that are not apparent.
+
 
 
 def smoking_cost(dataset, max_children = 0):
@@ -110,10 +116,9 @@ def cost_of_children(dataset):
     return print(f"The average cost of insurance ordered by number of children is: \nZero Children: ${avg_zero} \nOne Child: ${avg_one} \nTwo Children: ${avg_two} \nThree Children: ${avg_three} \nFour Children: ${avg_four} \nFive Children: ${avg_five}")
 
 cost_of_children(dataset)
-# the averages returned here are not telling the whole story, we either do not have a large enough dataset (very likely) or there is a very significant error in the data collection methods, so we will have to dig deeper to see if there is another variable having an overriding impact on the cost of insurance.
-# - are people with fewer kids more or less likely to smoke?
-
-
+# the averages returned here are not telling the whole story, we either do not have a large enough dataset (very likely) or there is a very
+# significant error in the data collection methods meaning this dataset is not representative of the population as a whole, so we will have to dig
+# deeper to see if there is another variable having an overriding impact on the cost of insurance.
 
 
 ###################################################################################################################################################
@@ -121,6 +126,7 @@ cost_of_children(dataset)
 # after writing the following function i realized i needed to learn about dynamic variables because this is getting a bit out of hand. i will try
 # my hand at writing a variable generator to make this less complicated (and in the real world there is no hard cap of 5 kids, so this would get
 # very messy very quick) once i finish this, but for now i'm going to lean into the absurd and make this very specific.
+# yes i know i made it even worse after writing this. no i am not changing it (for now).
 #
 ###################################################################################################################################################
 
@@ -281,15 +287,15 @@ def smoker_vs_parent_vs_age(dataset):
 
 smoker_vs_parent_vs_age(dataset)
                 
-    
+# this is some interesting data, and shows me that my assumptions about the significance of the added cost of children is far outweighed 
+# by other factors, but also that my assumption about the significance of the added cost of smoking was more correct than not.
+
+# next things to look into:
 
 
 
 
 
-
-
-
-
-
-# - what is the average bmi of people who have 0 children? 1 child? 2 children? 3? 4? 5?
+# in further instances of this type of project i will definitely make a point of structuring my data more effectively from the start, followed by
+# building helper functions that will generate the variables needed directly from the data which can be used in the analysis functions to speed up
+# the process of writing the functions, while also leaving less clutter for my other errors to hide in (and making it easier for fresh eyes to catch up)
